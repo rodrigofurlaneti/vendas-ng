@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';  
 import { ClienteService } from '../service/cliente.service';
-import { Cliente } from '../models/cliente';
-import { Observable } from 'rxjs';
+import { Cliente } from '../models/cliente.model';
 
 @Component({
   selector: 'app-cliente',
@@ -12,21 +10,25 @@ import { Observable } from 'rxjs';
 
 export class ClienteComponent implements OnInit {
 
-  clientes: Observable<Cliente[]>;  
   dataSaved = false;  
   clienteForm: any;  
   clienteIdUpdate = null;  
   message = null;  
-  
-  constructor(private clienteService: ClienteService) { }
+  clientes: Array<any> = new Array();
+
+  constructor(private clienteService: ClienteService) {}
 
   ngOnInit() {
     this.getClientes();
   }
 
-  getClientes() {
-    this.clientes = this.clienteService.getClientes();
-  }
+  public getClientes() {
+    return this.clienteService.getClientes().subscribe(
+                  clientes => { this.clientes = clientes; }, 
+                  err => { console.log('Erro ao listar clientes', err);}
+                )
+  };
+  
   onFormSubmit() {  
     this.dataSaved = false;  
     const cliente = this.clienteForm.value;  
@@ -45,7 +47,7 @@ export class ClienteComponent implements OnInit {
         }  
       );  
     } else {  
-      cliente.Id = this.clienteIdUpdate;  
+      cliente.id = this.clienteIdUpdate;  
       this.clienteService.updateCliente(this.clienteIdUpdate, cliente).subscribe(() => {  
         this.dataSaved = true;  
         this.message = 'Registro atualizado com sucesso';  
@@ -59,9 +61,9 @@ export class ClienteComponent implements OnInit {
     this.clienteService.getClienteById(Id).subscribe(cliente => {  
       this.message = null;  
       this.dataSaved = false;  
-      this.clienteIdUpdate = cliente.Id;  
-      this.clienteForm.controls['Nome'].setValue(cliente.Nome);  
-      this.clienteForm.controls['Email'].setValue(cliente.Email);  
+      this.clienteIdUpdate = cliente.id;  
+      this.clienteForm.controls['Nome'].setValue(cliente.nome);  
+      this.clienteForm.controls['Email'].setValue(cliente.email);  
     });    
   }  
   deleteCliente(Id: string) {  

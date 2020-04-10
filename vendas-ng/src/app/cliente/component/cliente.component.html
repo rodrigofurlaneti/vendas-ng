@@ -1,3 +1,26 @@
-<div class="container"> 
- <p>{{ clientes }}</p>
-</div>
+<table class="table table-dark">
+    <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Cpf</th>
+        <th>Email</th>
+        <th>Celular</th>
+    </tr>
+    <tr *ngFor="let cliente of clientes">
+        <td>
+            <p style="text-align: center;">{{ cliente.id }}</p>
+        </td>
+        <td>
+            <p style="text-align: center;">{{ cliente.nome }}</p>
+        </td>
+        <td>
+            <p style="text-align: center;">{{ cliente.cpf }}</p>
+        </td>
+        <td>
+            <p style="text-align: center;">{{ cliente.email }}</p>
+        </td>
+        <td>
+            <p style="text-align: center;">{{ cliente.celular }}</p>
+        </td>
+    </tr>
+</table>
