@@ -5,6 +5,7 @@
         <th>Cpf</th>
         <th>Email</th>
         <th>Celular</th>
+        <th>Apagar</th>
     </tr>
     <tr *ngFor="let cliente of clientes">
         <td>
@@ -22,5 +23,36 @@
         <td>
             <p style="text-align: center;">{{ cliente.celular }}</p>
         </td>
+        <td>
+            <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deleteCliente(cliente)">Deletar</button>
+        </td>
     </tr>
 </table>
+<div class="card add-car">
+    <h5 class="card-header">Adicionar cliente</h5>
+    <div class="card-body">
+        <form id="add-form" (ngSubmit)="addCliente(f)" #f="ngForm" novalidate>
+          <div class="form-group">
+              <label for="cliente.nome">Nome</label>
+              <input type="text" [(ngModel)]="cliente.nome" id="cliente.nome" name="cliente.nome" #model="ngModel" required class="form-control" placeholder="Digite o nome">
+            </div>
+            <div class="form-group">
+              <label for="cliente.cpf">Cpf</label>
+              <input type="text" [(ngModel)]="cliente.cpf" id="cliente.cpf" name="cliente.cpf" #cliente.cpf="ngModel" required class="form-control" placeholder="Digite o cpf">
+            </div>
+            <div class="form-group">
+                <label for="cliente.email">Email</label>
+                <input type="text" [(ngModel)]="cliente.email" id="cliente.email" name="cliente.email" #cliente.email="ngModel" required class="form-control" placeholder="Digite o email">
+            </div>
+            <div class="form-group">
+                <label for="cliente.celular">Celular</label>
+                <input type="text" [(ngModel)]="cliente.celular" id="cliente.celular" name="cliente.celular" #cliente.celular="ngModel" required class="form-control" placeholder="Digite o celular">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-add-cliente">Salvar</button>
+                <button type="reset" class="btn btn-secondary btn-add-cliente" (click)="cleanForm(f)">Cancelar</button>
+            </div>
+    </form>
+    </div>
+  </div>
+

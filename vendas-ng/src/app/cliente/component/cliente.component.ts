@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClienteService } from '../service/cliente.service';
 import { Cliente } from '../models/cliente.model';
-
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-cliente',
   templateUrl: '../component/cliente.component.html',
@@ -14,7 +14,9 @@ export class ClienteComponent implements OnInit {
   clienteForm: any;  
   clienteIdUpdate = null;  
   message = null;  
-  clientes: Array<any> = new Array();
+  clientes: Cliente[];
+  clienteById: number;
+  cliente = {} as Cliente;
 
   constructor(private clienteService: ClienteService) {}
 
@@ -22,64 +24,38 @@ export class ClienteComponent implements OnInit {
     this.getClientes();
   }
 
+  //Selecionar todos os clientes
   public getClientes() {
     return this.clienteService.getClientes().subscribe(
                   clientes => { this.clientes = clientes; }, 
                   err => { console.log('Erro ao listar clientes', err);}
                 )
   };
-  
-  onFormSubmit() {  
-    this.dataSaved = false;  
-    const cliente = this.clienteForm.value;  
-    this.CreateCliente(cliente);  
-    this.clienteForm.reset();  
-  } 
-  CreateCliente(cliente: Cliente) {  
-    if (this.clienteIdUpdate == null) {  
-      this.clienteService.createCliente(cliente).subscribe(  
-        () => {  
-          this.dataSaved = true;  
-          this.message = 'Registro salvo com sucesso';  
-          this.getClientes();  
-          this.clienteIdUpdate = null;  
-          this.clienteForm.reset();  
-        }  
-      );  
-    } else {  
-      cliente.id = this.clienteIdUpdate;  
-      this.clienteService.updateCliente(this.clienteIdUpdate, cliente).subscribe(() => {  
-        this.dataSaved = true;  
-        this.message = 'Registro atualizado com sucesso';  
-        this.getClientes();  
-        this.clienteIdUpdate = null;  
-        this.clienteForm.reset();  
-      });  
-    }  
-  }  
-  loadClienteToEdit(Id: string) {  
-    this.clienteService.getClienteById(Id).subscribe(cliente => {  
-      this.message = null;  
-      this.dataSaved = false;  
-      this.clienteIdUpdate = cliente.id;  
-      this.clienteForm.controls['Nome'].setValue(cliente.nome);  
-      this.clienteForm.controls['Email'].setValue(cliente.email);  
-    });    
-  }  
-  deleteCliente(Id: string) {  
-    if (confirm("Deseja realmente deletar este cliente ?")) {   
-      this.clienteService.deleteClienteById(Id).subscribe(() => {  
-        this.dataSaved = true;  
-        this.message = 'Registro deletado com sucesso';  
-        this.getClientes();  
-        this.clienteIdUpdate = null;  
-        this.clienteForm.reset();  
-      });  
-    }  
-  }  
-  resetForm() {  
-    this.clienteForm.reset();  
-    this.message = null;  
-    this.dataSaved = false;  
+
+  //Deletar um cliente
+  public deleteCliente(cliente: Cliente) {
+    this.clienteService.deleteCliente(cliente).subscribe(() => {
+      this.getClientes();
+    });
   }
+  
+  //Adicionar cliente
+  public addCliente(form: NgForm) {
+      if (this.cliente.id !== undefined) {
+        this.clienteService.updateCliente(this.cliente).subscribe(() => {
+          this.cleanForm(form);
+        });
+      } else {
+        this.clienteService.saveCliente(this.cliente).subscribe(() => {
+          this.cleanForm(form);
+        });
+      }
+    }
+  
+  //Limpar formulário de cliente
+  public cleanForm(form: NgForm) {
+    this.getClientes();
+    form.resetForm();
+  }
+
 }
