@@ -1,0 +1,60 @@
+<div id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Categoria
+          </button>
+        </h5>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div class="card-body">
+            <h3 style="text-align: center;" class="display-4">Lista de categorias</h3>
+                <table class="table">
+                    <tr>
+                        <th style="text-align: center;">Id</th>
+                        <th style="text-align: center;">Nome</th>
+                        <th style="text-align: center;">Editar</th>
+                        <th style="text-align: center;">Apagar</th>
+                    </tr>
+                    <tr *ngFor="let categoria of categorias">
+                        <td>
+                            <p style="text-align: center;">{{ categoria.id }}</p>
+                        </td>
+                        <td>
+                            <p style="text-align: center;">{{ categoria.nome }}</p>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-warning btn-sm btn-add-categoria" (click)="editCategoria(categoria)">Editar</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm btn-add-categoria" (click)="deleteCategoria(categoria)">Deletar</button>
+                        </td>
+                    </tr>
+                </table>
+                <h3 style="text-align: center;" class="display-4">Adicionar categoria</h3>
+                <div class="card add-categoria">
+                    <div class="card-body">
+                        <form id="add-form" (ngSubmit)="addCategoria(f)" #f="ngForm" novalidate class="example-form">
+                            <input type="hidden" [(ngModel)]="categoria.id" id="categoria.id" name="categoria.id" #categoria.id="ngModel">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Nome</mat-label>
+                                        <input matInput [(ngModel)]="categoria.nome" id="categoria.nome" name="categoria.nome" #categoria.nome="ngModel" required class="form-control" placeholder="Digite o nome">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-sm btn-add-categoria">Salvar</button>
+                                <button type="reset" class="btn btn-secondary btn-sm btn-add-categoria" (click)="cleanForm(f)">Cancelar</button>
+                            </div>
+                    </form>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+  </div>
+</div>
+

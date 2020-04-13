@@ -17,28 +17,30 @@ export class ClienteService {
   }
 
   constructor(private http: HttpClient) { }
- 
+  //Selecionar todos clientes
   getClientes() : Observable<Cliente[]>{
     return this.http.get<Cliente[]>(this.url);
     
   }
+
+  //Selecionar um cliente
   getClienteById(id: number) : Observable<any>{  
     const urlById = `${this.url}/${id}`;
     return this.http.get<Cliente>(urlById);  
   } 
-  createCliente(cliente: Cliente): Observable<Cliente> {  
-    return this.http.post<Cliente>(this.url, cliente, httpOptions);  
-  }  
 
+  //Apagar cliente
   deleteCliente(cliente: Cliente) {
     return this.http.delete<Cliente>(this.url + '/' + cliente.id, this.httpOptions)
   }
 
-  saveCliente(cliente: Cliente): Observable<Cliente> {
+  //Adicionar cliente
+  addCliente(cliente: Cliente): Observable<Cliente> {
     return this.http.post<Cliente>(this.url, JSON.stringify(cliente), this.httpOptions)
   }
 
-  // utualiza um carro
+  //Atualiza um carro
   updateCliente(cliente: Cliente): Observable<Cliente> {
-    return this.http.put<Cliente>(this.url + '/' + cliente.id, JSON.stringify(cliente), this.httpOptions)  }
+    return this.http.put<Cliente>(this.url + '/' + cliente.id, JSON.stringify(cliente), this.httpOptions)  
+  }
 }

@@ -10,6 +10,7 @@ import { NgForm } from '@angular/forms';
 
 export class ClienteComponent implements OnInit {
 
+  panelOpenState = false;
   dataSaved = false;  
   clienteForm: any;  
   clienteIdUpdate = null;  
@@ -46,7 +47,7 @@ export class ClienteComponent implements OnInit {
           this.cleanForm(form);
         });
       } else {
-        this.clienteService.saveCliente(this.cliente).subscribe(() => {
+        this.clienteService.addCliente(this.cliente).subscribe(() => {
           this.cleanForm(form);
         });
       }
@@ -56,6 +57,11 @@ export class ClienteComponent implements OnInit {
   public cleanForm(form: NgForm) {
     this.getClientes();
     form.resetForm();
+  }
+
+  //Editar cliente
+  editCliente(cliente: Cliente) {
+    this.cliente = { ...cliente };
   }
 
 }

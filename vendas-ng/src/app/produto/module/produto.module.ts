@@ -45,18 +45,18 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
-import { ClienteComponent } from '../component/cliente.component';
-import { ClienteService } from '../service/cliente.service';
+import { ProdutoComponent } from '../component/produto.component';
+import { ProdutoService } from '../service/produto.service';
 const appRoutes: Routes = [
   {
-    path: 'Cliente',
-    component: ClienteComponent,
-    data: { title: 'Lista de clientes' }
+    path: 'Produto',
+    component: ProdutoComponent,
+    data: { title: 'Lista de produtos' }
   },
   {
-    path: 'Cliente/:id',
-    component: ClienteComponent,
-    data: { title: 'Detalhar cliente' }
+    path: 'Produto/:id',
+    component: ProdutoComponent,
+    data: { title: 'Detalhar produto' }
   }
 
 ];
@@ -112,14 +112,14 @@ const appRoutes: Routes = [
     ScrollingModule,
   ],
   declarations: [
-    ClienteComponent,
+    ProdutoComponent,
   ],
   exports: [
-    ClienteComponent
+    ProdutoComponent
   ],
   providers: [
     HttpClient,
-    ClienteService,
+    ProdutoService,
   ]
 })
-export class ClienteModule { }
+export class ProdutoModule { }

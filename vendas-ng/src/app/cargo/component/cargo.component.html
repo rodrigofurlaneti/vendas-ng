@@ -1,0 +1,60 @@
+<div id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            Cargo
+          </button>
+        </h5>
+      </div>
+      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+            <h3 style="text-align: center;" class="display-4">Lista de cargos</h3>
+                <table class="table">
+                    <tr>
+                        <th style="text-align: center;">Id</th>
+                        <th style="text-align: center;">Nome</th>
+                        <th style="text-align: center;">Editar</th>
+                        <th style="text-align: center;">Apagar</th>
+                    </tr>
+                    <tr *ngFor="let cargo of cargos">
+                        <td>
+                            <p style="text-align: center;">{{ cargo.id }}</p>
+                        </td>
+                        <td>
+                            <p style="text-align: center;">{{ cargo.nome }}</p>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-warning btn-sm btn-add-cargo" (click)="editCargo(cargo)">Editar</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm btn-add-cargo" (click)="deleteCargo(cargo)">Deletar</button>
+                        </td>
+                    </tr>
+                </table>
+                <h3 style="text-align: center;" class="display-4">Adicionar cargo</h3>
+                <div class="card add-cargo">
+                    <div class="card-body">
+                        <form id="add-form" (ngSubmit)="addCargo(f)" #f="ngForm" novalidate class="example-form">
+                            <input type="hidden" [(ngModel)]="cargo.id" id="cargo.id" name="cargo.id" #cargo.id="ngModel">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Nome</mat-label>
+                                        <input matInput [(ngModel)]="cargo.nome" id="cargo.nome" name="cargo.nome" #cargo.nome="ngModel" required class="form-control" placeholder="Digite o nome">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-sm btn-add-cargo">Salvar</button>
+                                <button type="reset" class="btn btn-secondary btn-sm btn-add-cargo" (click)="cleanForm(f)">Cancelar</button>
+                            </div>
+                    </form>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+  </div>
+</div>
+

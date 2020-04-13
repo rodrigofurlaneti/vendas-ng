@@ -45,18 +45,18 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
-import { ClienteComponent } from '../component/cliente.component';
-import { ClienteService } from '../service/cliente.service';
+import { CategoriaComponent } from '../component/categoria.component';
+import { CategoriaService } from '../service/categoria.service';
 const appRoutes: Routes = [
   {
-    path: 'Cliente',
-    component: ClienteComponent,
-    data: { title: 'Lista de clientes' }
+    path: 'Categoria',
+    component: CategoriaComponent,
+    data: { title: 'Lista de Categorias' }
   },
   {
-    path: 'Cliente/:id',
-    component: ClienteComponent,
-    data: { title: 'Detalhar cliente' }
+    path: 'Categoria/:id',
+    component: CategoriaComponent,
+    data: { title: 'Detalhar Categoria' }
   }
 
 ];
@@ -112,14 +112,14 @@ const appRoutes: Routes = [
     ScrollingModule,
   ],
   declarations: [
-    ClienteComponent,
+    CategoriaComponent,
   ],
   exports: [
-    ClienteComponent
+    CategoriaComponent
   ],
   providers: [
     HttpClient,
-    ClienteService,
+    CategoriaService,
   ]
 })
-export class ClienteModule { }
+export class CategoriaModule { }

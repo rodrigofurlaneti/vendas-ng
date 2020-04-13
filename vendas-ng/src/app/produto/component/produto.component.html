@@ -1,0 +1,134 @@
+<div id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingFour">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            Produto
+          </button>
+        </h5>
+      </div>
+      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+        <div class="card-body">
+            <h3 style="text-align: center;" class="display-4">Lista de produtos</h3>
+                <table class="table">
+                    <tr>
+                        <th style="text-align: center;">Id</th>
+                        <th style="text-align: center;">Nome</th>
+                        <th style="text-align: center;">Quantidade</th>
+                        <th style="text-align: center;">Valor</th>
+                        <th style="text-align: center;">Valor custo unitário</th>
+                        <th style="text-align: center;">Valor custo total</th>
+                        <th style="text-align: center;">Valor lucro unitário</th>
+                        <th style="text-align: center;">Valor lucro total</th>
+                        <th style="text-align: center;">Valor bruto</th>
+                        <th style="text-align: center;">Categoria</th>
+                        <th style="text-align: center;">Editar</th>
+                        <th style="text-align: center;">Apagar</th>
+                    </tr>
+                    <tr *ngFor="let produto of produtos">
+                        <td>
+                            <p style="text-align: center;">{{ produto.id }}</p>
+                        </td>
+                        <td>
+                            <p style="text-align: center;">{{ produto.nome }}</p>
+                        </td>
+                        <td>
+                            <p style="text-align: center;">{{ produto.quantidade }}</p>
+                        </td>
+                        <td>
+                            <p style="text-align: center;">{{ produto.valor }}</p>
+                        </td>
+                        <td>
+                            <p style="text-align: center;">{{ produto.valorcustounitario }}</p>
+                        </td>
+                        <td>
+                            <p style="text-align: center;">{{ produto.valorcustototal }}</p>
+                        </td>
+                        <td>
+                            <p style="text-align: center;">{{ produto.valorlucrounitario }}</p>
+                        </td>
+                        <td>
+                            <p style="text-align: center;">{{ produto.valorlucrototal }}</p>
+                        </td>
+                        <td>
+                            <p style="text-align: center;">{{ produto.valorbruto }}</p>
+                        </td>
+                        <td>
+                            <p style="text-align: center;">{{ produto.codigocategoria }}</p>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-warning btn-sm btn-add-produto" (click)="editProduto(produto)">Editar</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm btn-add-produto" (click)="deleteProduto(produto)">Deletar</button>
+                        </td>
+                    </tr>
+                </table>
+                <h3 style="text-align: center;" class="display-4">Adicionar produto</h3>
+                <div class="card add-produto">
+                    <div class="card-body">
+                        <form id="add-form" (ngSubmit)="addProduto(f)" #f="ngForm" novalidate class="example-form">
+                            <input type="hidden" [(ngModel)]="produto.id" id="produto.id" name="produto.id" #produto.id="ngModel">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Nome</mat-label>
+                                        <input matInput [(ngModel)]="produto.nome" id="produto.nome" name="produto.nome" #produto.nome="ngModel">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Quantidade</mat-label>
+                                        <input matInput [(ngModel)]="produto.quantidade" id="produto.quantidade" name="produto.quantidade" #produto.quantidade="ngModel">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Quantidade minina</mat-label>
+                                        <input matInput [(ngModel)]="produto.quantidademinima" id="produto.quantidademinima" name="produto.quantidademinina" #produto.quantidademinina="ngModel">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Valor custo unitário</mat-label>
+                                        <input matInput [(ngModel)]="produto.valorcustounitario" id="produto.valorcustounitario" name="produto.valorcustounitario" #produto.valorcustounitario="ngModel">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Valor custo total</mat-label>
+                                        <input matInput [(ngModel)]="produto.valorcustototal" id="produto.valorcustototal" name="produto.valorcustototal" #produto.valorcustototal="ngModel">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Valor lucro unitário</mat-label>
+                                        <input matInput [(ngModel)]="produto.valorlucrounitario" id="produto.valorlucrounitario" name="produto.valorlucrounitario" #produto.valorlucrounitario="ngModel">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Valor lucro total</mat-label>
+                                        <input matInput [(ngModel)]="produto.valorlucrototal" id="produto.valorlucrototal" name="produto.valorlucrototal" #produto.valorlucrototal="ngModel">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Categoria</mat-label>
+                                        <input matInput [(ngModel)]="produto.idcategoria" id="produto.idcategoria" name="produto.idcategoria" #produto.idcategoria="ngModel">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-sm btn-add-categoria">Salvar</button>
+                                <button type="reset" class="btn btn-secondary btn-sm btn-add-categoria" (click)="cleanForm(f)">Cancelar</button>
+                            </div>
+                    </form>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+  </div>
+</div>
+
