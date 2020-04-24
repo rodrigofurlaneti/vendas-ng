@@ -45,10 +45,12 @@ export class ClienteComponent implements OnInit {
       if (this.cliente.id !== undefined) {
         this.clienteService.updateCliente(this.cliente).subscribe(() => {
           this.cleanForm(form);
+          window.location.reload();
         });
       } else {
         this.clienteService.addCliente(this.cliente).subscribe(() => {
           this.cleanForm(form);
+          window.location.reload();
         });
       }
     }

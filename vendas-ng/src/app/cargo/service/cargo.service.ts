@@ -23,12 +23,6 @@ export class CargoService {
     
   }
 
-  //Selecionar um cargo
-  getCargoById(id: number) : Observable<any>{  
-    const urlById = `${this.url}/${id}`;
-    return this.http.get<Cargo>(urlById);  
-  } 
-
   //Apagar cargo
   deleteCargo(cargo: Cargo) {
     return this.http.delete<Cargo>(this.url + '/' + cargo.id, this.httpOptions)

@@ -15,9 +15,67 @@
   <app-root></app-root>
 </body>
 </html>
-<script src="script.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script type="text/javascript">
 
+  function CalcularProduto() {
+        var quantidade = document.getElementById("produto.quantidade");
+        var valor = document.getElementById("produto.valor");
+        document.getElementById("produto.valor").setAttribute("ng-reflect-model", valor.value);
+        var custo = document.getElementById("produto.valorcustounitario");
+        document.getElementById("produto.valorcustounitario").setAttribute("ng-reflect-model", custo.value);
+        var totalCusto = custo.value * quantidade.value;
+        document.getElementById("produto.valorcustototal").value = totalCusto.toFixed(2);
+        document.getElementById("produto.valorcustototal").setAttribute("ng-reflect-model", totalCusto);
+        var lucroUnitario = valor.value - custo.value;
+        document.getElementById("produto.valorlucrounitario").value = lucroUnitario.toFixed(2);
+        document.getElementById("produto.valorlucrounitario").setAttribute("ng-reflect-model", lucroUnitario);
+        var lucroTotal = lucroUnitario * quantidade.value;
+        document.getElementById("produto.valorlucrototal").value = lucroTotal.toFixed(2);
+        document.getElementById("produto.valorlucrototal").setAttribute("ng-reflect-model", lucroTotal);
+        var bruto = lucroTotal + totalCusto;
+        document.getElementById("produto.valorbruto").value = bruto.toFixed(2);
+        document.getElementById("produto.valorbruto").setAttribute("ng-reflect-model", bruto);
+  };
+
+  function moeda(a, e, r, t) {
+  let n = ""
+    , h = j = 0
+    , u = tamanho2 = 0
+    , l = ajd2 = ""
+    , o = window.Event ? t.which : t.keyCode;
+  if (13 == o || 8 == o)
+      return !0;
+  if (n = String.fromCharCode(o),
+  -1 == "0123456789".indexOf(n))
+      return !1;
+  for (u = a.value.length,
+  h = 0; h < u && ("0" == a.value.charAt(h) || a.value.charAt(h) == r); h++)
+      ;
+  for (l = ""; h < u; h++)
+      -1 != "0123456789".indexOf(a.value.charAt(h)) && (l += a.value.charAt(h));
+  if (l += n,
+  0 == (u = l.length) && (a.value = ""),
+  1 == u && (a.value = "0" + r + "0" + l),
+  2 == u && (a.value = "0" + r + l),
+  u > 2) {
+      for (ajd2 = "",
+      j = 0,
+      h = u - 3; h >= 0; h--)
+          3 == j && (ajd2 += e,
+          j = 0),
+          ajd2 += l.charAt(h),
+          j++;
+      for (a.value = "",
+      tamanho2 = ajd2.length,
+      h = tamanho2 - 1; h >= 0; h--)
+          a.value += ajd2.charAt(h);
+      a.value += r + l.substr(u - 2, u)
+  }
+  return !1
+  }
+  
+  </script>
 

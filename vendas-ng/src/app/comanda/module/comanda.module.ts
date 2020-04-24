@@ -1,5 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import {A11yModule} from '@angular/cdk/a11y';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {DragDropModule} from '@angular/cdk/drag-drop';
@@ -42,28 +45,28 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';  
-import { CargoModule } from './cargo/module/cargo.module';
-import { CategoriaModule } from './categoria/module/categoria.module';
-import { ClienteModule } from './cliente/module/cliente.module';
-import { ComandaModule } from './comanda/module/comanda.module';
-import { ProdutoModule } from './produto/module/produto.module';
+import { ComandaComponent } from '../component/comanda.component';
+import { ComandaService } from '../service/comanda.service';
+const appRoutes: Routes = [
+  {
+    path: 'Comanda',
+    component: ComandaComponent,
+    data: { title: 'Lista de comandas' }
+  },
+  {
+    path: 'Comanda/:id',
+    component: ComandaComponent,
+    data: { title: 'Detalhar comanda' }
+  }
+
+];
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
-    CargoModule,
-    CategoriaModule,
-    ClienteModule,
-    ComandaModule,
-    ProdutoModule,
-    BrowserAnimationsModule,
+    RouterModule.forRoot(appRoutes),
+    FormsModule,
+    CommonModule,
+    HttpClientModule,
     A11yModule,
     ClipboardModule,
     CdkStepperModule,
@@ -108,9 +111,15 @@ import { ProdutoModule } from './produto/module/produto.module';
     PortalModule,
     ScrollingModule,
   ],
-  providers: [],
-  bootstrap: [
-    AppComponent
+  declarations: [
+    ComandaComponent,
+  ],
+  exports: [
+    ComandaComponent
+  ],
+  providers: [
+    HttpClient,
+    ComandaService,
   ]
 })
-export class AppModule { }
+export class ComandaModule { }

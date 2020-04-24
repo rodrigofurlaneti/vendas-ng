@@ -1,27 +1,28 @@
 <div id="accordion">
     <div class="card">
-      <div class="card-header" id="headingFour">
+      <div class="card-header" id="headingFive">
         <h5 class="mb-0">
-          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
             Produto
           </button>
         </h5>
       </div>
-      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+      <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
         <div class="card-body">
             <h3 style="text-align: center;" class="display-4">Lista de produtos</h3>
                 <table class="table">
                     <tr>
                         <th style="text-align: center;">Id</th>
                         <th style="text-align: center;">Nome</th>
+                        <th style="text-align: center;">Categoria</th>
                         <th style="text-align: center;">Quantidade</th>
-                        <th style="text-align: center;">Valor</th>
+                        <th style="text-align: center;">Quantidade Minima</th>
+                        <th style="text-align: center;">Valor venda</th>
                         <th style="text-align: center;">Valor custo unitário</th>
                         <th style="text-align: center;">Valor custo total</th>
                         <th style="text-align: center;">Valor lucro unitário</th>
                         <th style="text-align: center;">Valor lucro total</th>
                         <th style="text-align: center;">Valor bruto</th>
-                        <th style="text-align: center;">Categoria</th>
                         <th style="text-align: center;">Editar</th>
                         <th style="text-align: center;">Apagar</th>
                     </tr>
@@ -33,7 +34,13 @@
                             <p style="text-align: center;">{{ produto.nome }}</p>
                         </td>
                         <td>
+                            <p style="text-align: center;">{{ produto.categoria }}</p>
+                        </td>
+                        <td>
                             <p style="text-align: center;">{{ produto.quantidade }}</p>
+                        </td>
+                        <td>
+                            <p style="text-align: center;">{{ produto.quantidademinima }}</p>
                         </td>
                         <td>
                             <p style="text-align: center;">{{ produto.valor }}</p>
@@ -54,9 +61,6 @@
                             <p style="text-align: center;">{{ produto.valorbruto }}</p>
                         </td>
                         <td>
-                            <p style="text-align: center;">{{ produto.codigocategoria }}</p>
-                        </td>
-                        <td>
                             <button type="button" class="btn btn-warning btn-sm btn-add-produto" (click)="editProduto(produto)">Editar</button>
                         </td>
                         <td>
@@ -67,8 +71,7 @@
                 <h3 style="text-align: center;" class="display-4">Adicionar produto</h3>
                 <div class="card add-produto">
                     <div class="card-body">
-                        <form id="add-form" (ngSubmit)="addProduto(f)" #f="ngForm" novalidate class="example-form">
-                            <input type="hidden" [(ngModel)]="produto.id" id="produto.id" name="produto.id" #produto.id="ngModel">
+                        <form id="add-form-produto" (ngSubmit)="addProduto(f)" #f="ngForm" novalidate class="example-form">
                             <div class="row">
                                 <div class="col-sm">
                                     <mat-form-field class="example-full-width">
@@ -90,12 +93,18 @@
                                 </div>
                                 <div class="col-sm">
                                     <mat-form-field class="example-full-width">
-                                        <mat-label>Valor custo unitário</mat-label>
-                                        <input matInput [(ngModel)]="produto.valorcustounitario" id="produto.valorcustounitario" name="produto.valorcustounitario" #produto.valorcustounitario="ngModel">
+                                        <mat-label>Valor</mat-label>
+                                        <input matInput [(ngModel)]="produto.valor" id="produto.valor" name="produto.valor" #produto.valor="ngModel" onKeyPress="return(moeda(this,'.','.',event))">
                                     </mat-form-field>
                                 </div>
                                 <div class="col-sm">
                                     <mat-form-field class="example-full-width">
+                                        <mat-label>Valor custo unitário</mat-label>
+                                        <input matInput [(ngModel)]="produto.valorcustounitario" id="produto.valorcustounitario" name="produto.valorcustounitario" #produto.valorcustounitario="ngModel" onblur="CalcularProduto()" onKeyPress="return(moeda(this,'.','.',event))">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm">
+                                    <mat-form-field id="matvalorcustototal" class="example-full-width">
                                         <mat-label>Valor custo total</mat-label>
                                         <input matInput [(ngModel)]="produto.valorcustototal" id="produto.valorcustototal" name="produto.valorcustototal" #produto.valorcustototal="ngModel">
                                     </mat-form-field>
@@ -109,19 +118,29 @@
                                 <div class="col-sm">
                                     <mat-form-field class="example-full-width">
                                         <mat-label>Valor lucro total</mat-label>
-                                        <input matInput [(ngModel)]="produto.valorlucrototal" id="produto.valorlucrototal" name="produto.valorlucrototal" #produto.valorlucrototal="ngModel">
+                                        <input matInput [(ngModel)]="produto.valorlucrototal" id="produto.valorlucrototal" name="produto.valorlucrototal" #produto.valorLucroTotal="ngModel">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Valor bruto</mat-label>
+                                        <input matInput [(ngModel)]="produto.valorbruto" id="produto.valorbruto" name="produto.valorbruto" #produto.valorbruto="ngModel">
                                     </mat-form-field>
                                 </div>
                                 <div class="col-sm">
                                     <mat-form-field class="example-full-width">
                                         <mat-label>Categoria</mat-label>
-                                        <input matInput [(ngModel)]="produto.idcategoria" id="produto.idcategoria" name="produto.idcategoria" #produto.idcategoria="ngModel">
+                                        <mat-select [(ngModel)]="produto.categoria" id="produto.categoria" name="produto.categoria" #produto.categoria="ngModel" >
+                                          <mat-option *ngFor="let categoria of categorias" [value]="categoria.nome">
+                                            {{categoria.nome}}
+                                          </mat-option>
+                                        </mat-select>
                                     </mat-form-field>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-success btn-sm btn-add-categoria">Salvar</button>
-                                <button type="reset" class="btn btn-secondary btn-sm btn-add-categoria" (click)="cleanForm(f)">Cancelar</button>
+                                <button type="submit" class="btn btn-success btn-sm btn-add-produto">Salvar</button>
+                                <button type="reset" class="btn btn-secondary btn-sm btn-add-protudo" (click)="cleanForm(f)">Cancelar</button>
                             </div>
                     </form>
                     </div>
@@ -131,4 +150,3 @@
     </div>
   </div>
 </div>
-

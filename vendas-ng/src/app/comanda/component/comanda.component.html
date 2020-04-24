@@ -1,0 +1,84 @@
+<div id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingFour">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+            Comanda
+          </button>
+        </h5>
+      </div>
+      <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+        <div class="card-body">
+            <h3 style="text-align: center;" class="display-4">Lista de comandas</h3>
+                <table class="table">
+                    <tr>
+                        <th style="text-align: center;">Id</th>
+                        <th style="text-align: center;">Nome</th>
+                        <th style="text-align: center;">Data</th>
+                        <th style="text-align: center;">Status</th>
+                        <th style="text-align: center;">Editar</th>
+                        <th style="text-align: center;">Apagar</th>
+                    </tr>
+                    <tr *ngFor="let comanda of comandas">
+                        <td>
+                            <p style="text-align: center;">{{ comanda.id }}</p>
+                        </td>
+                        <td>
+                            <p style="text-align: center;">{{ comanda.nome }}</p>
+                        </td>
+                        <td>
+                            <p style="text-align: center;">{{ comanda.data }}</p>
+                        </td>
+                        <td>
+                            <p style="text-align: center;">{{ comanda.status }}</p>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-warning btn-sm btn-add-comanda" (click)="editComanda(comanda)">Editar</button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm btn-add-comanda" (click)="deleteComanda(comanda)">Deletar</button>
+                        </td>
+                    </tr>
+                </table>
+                <h3 style="text-align: center;" class="display-4">Adicionar comanda</h3>
+                <div class="card add-comanda">
+                    <div class="card-body">
+                        <form id="add-form-comanda" (ngSubmit)="addComanda(f)" #f="ngForm" novalidate class="example-form">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Nome cliente</mat-label>
+                                        <mat-select [(ngModel)]="comanda.nome" id="comanda.nome" name="comanda.nome" #comanda.nome="ngModel">
+                                          <mat-option *ngFor="let cliente of clientes" [value]="cliente.nome">
+                                            {{cliente.nome}}
+                                          </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Data</mat-label>
+                                        <input matInput [(ngModel)]="comanda.data" id="comanda.data" name="comanda.data" #comanda.data="ngModel">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm">
+                                    <mat-form-field class="example-full-width">
+                                        <mat-label>Status</mat-label>
+                                        <mat-select [(ngModel)]="comanda.status" id="comanda.status" name="comanda.status" #comanda.status="ngModel" >
+                                          <mat-option>Aberta</mat-option>
+                                          <mat-option>Fechada</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-sm btn-add-comanda">Salvar</button>
+                                <button type="reset" class="btn btn-secondary btn-sm btn-add-comanta" (click)="cleanForm(f)">Cancelar</button>
+                            </div>
+                    </form>
+                    </div>
+                </div>
+        </div>
+    </div>
+  </div>
+</div>

@@ -9,12 +9,9 @@ import { NgForm } from '@angular/forms';
 })
 
 export class CategoriaComponent implements OnInit {
-
   categorias: Categoria[];
   categoria = {} as Categoria;
-
   constructor(private categoriaService: CategoriaService) {}
-
   ngOnInit() {
     this.getCategorias();
   }
@@ -39,10 +36,12 @@ export class CategoriaComponent implements OnInit {
       if (this.categoria.id !== undefined) {
         this.categoriaService.updateCategoria(this.categoria).subscribe(() => {
           this.cleanForm(form);
+          window.location.reload();
         });
       } else {
         this.categoriaService.addCategoria(this.categoria).subscribe(() => {
           this.cleanForm(form);
+          window.location.reload();
         });
       }
     }

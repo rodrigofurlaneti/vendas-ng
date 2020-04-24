@@ -21,24 +21,18 @@ export class CategoriaService {
     
   }
 
-  //Selecionar um Categoria
-  getCategoriaById(id: number) : Observable<any>{  
-    const urlById = `${this.url}/${id}`;
-    return this.http.get<Categoria>(urlById);  
-  } 
-
   //Apagar Categoria
-  deleteCategoria(Categoria: Categoria) {
-    return this.http.delete<Categoria>(this.url + '/' + Categoria.id, this.httpOptions)
+  deleteCategoria(categoria: Categoria) {
+    return this.http.delete<Categoria>(this.url + '/' + categoria.id, this.httpOptions)
   }
 
   //Adicionar Categoria
-  addCategoria(Categoria: Categoria): Observable<Categoria> {
-    return this.http.post<Categoria>(this.url, JSON.stringify(Categoria), this.httpOptions)
+  addCategoria(categoria: Categoria): Observable<Categoria> {
+    return this.http.post<Categoria>(this.url, JSON.stringify(categoria), this.httpOptions)
   }
 
   //Atualiza um carro
-  updateCategoria(Categoria: Categoria): Observable<Categoria> {
-    return this.http.put<Categoria>(this.url + '/' + Categoria.id, JSON.stringify(Categoria), this.httpOptions)  
+  updateCategoria(categoria: Categoria): Observable<Categoria> {
+    return this.http.put<Categoria>(this.url + '/' + categoria.id, JSON.stringify(Categoria), this.httpOptions)  
   }
 }

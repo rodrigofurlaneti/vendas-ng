@@ -9,5 +9,5 @@ export class Produto extends Array{
     public valorlucrounitario: string;
     public valorlucrototal: string;
     public valorbruto: string;
-    public idcategoria: string;
+    public categoria: string;
 };

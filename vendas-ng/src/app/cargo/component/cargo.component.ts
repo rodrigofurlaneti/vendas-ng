@@ -45,10 +45,13 @@ export class CargoComponent implements OnInit {
       if (this.cargo.id !== undefined) {
         this.cargoService.updateCargo(this.cargo).subscribe(() => {
           this.cleanForm(form);
+          window.location.reload();
         });
       } else {
         this.cargoService.addCargo(this.cargo).subscribe(() => {
           this.cleanForm(form);
+          this.getCargos();
+          window.location.reload();
         });
       }
     }
